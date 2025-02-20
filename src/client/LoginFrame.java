@@ -27,22 +27,25 @@ public class LoginFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Center the frame
 
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBackground(new Color(60, 63, 65));
+        // Create a custom panel with background image
+        BackgroundPanel panel = new BackgroundPanel("E:\\6TH Sem Aca\\EE6253 Operating Systems\\project\\BankApplication\\src\\client\\Bank image.png");
+        panel.setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
         JLabel titleLabel = new JLabel("Welcome to the Bank");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 23));
         titleLabel.setForeground(Color.WHITE);
 
-        JLabel accountLabel = new JLabel("Account Number:");
+        JLabel accountLabel = new JLabel("Account Number :");
         accountLabel.setForeground(Color.WHITE);
+        accountLabel.setFont(new Font("Arial", Font.PLAIN, 16)); // Changed font size to 16
         JTextField accountField = new JTextField(15);
 
-        JLabel pinLabel = new JLabel("PIN:");
+        JLabel pinLabel = new JLabel("Password          :");
         pinLabel.setForeground(Color.WHITE);
+        pinLabel.setFont(new Font("Arial", Font.PLAIN, 16));; // Changed font size to 16
         JPasswordField pinField = new JPasswordField(15);
 
         JButton loginButton = new JButton("Login");
@@ -135,5 +138,20 @@ public class LoginFrame extends JFrame {
 
         // Open the dashboard frame
         new DashboardFrame(out, in, socket);
+    }
+
+    // Custom JPanel class to draw the background image
+    class BackgroundPanel extends JPanel {
+        private Image backgroundImage;
+
+        public BackgroundPanel(String imagePath) {
+            this.backgroundImage = new ImageIcon(imagePath).getImage();
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 }
